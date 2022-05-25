@@ -3,6 +3,7 @@ from flask import Flask
 from flask_restplus import Api, Resource, fields
 import joblib
 from m09_model_deployment import clasificar_pelicula
+from m09_model_deployment import split_into_lemmas
 
 
 # Definición aplicación Flask
