@@ -8,10 +8,11 @@ import numpy as np
 import nltk
 from nltk.stem import WordNetLemmatizer
 
-# Lematizacion
-wordnet_lemmatizer = WordNetLemmatizer()
-nltk.download('wordnet')
+
 def split_into_lemmas(text):
+    # Lematizacion
+    wordnet_lemmatizer = WordNetLemmatizer()
+    nltk.download('wordnet')
     text = text.lower()
     words = text.split()
     return [wordnet_lemmatizer.lemmatize(word, pos='v') for word in words]
