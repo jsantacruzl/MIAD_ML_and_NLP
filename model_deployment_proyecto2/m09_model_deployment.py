@@ -12,7 +12,7 @@ from nltk.stem import WordNetLemmatizer
 def split_into_lemmas(text):
     # Lematizacion
     wordnet_lemmatizer = WordNetLemmatizer()
-    nltk.download('wordnet')
+    #nltk.download('wordnet')
     text = text.lower()
     words = text.split()
     return [wordnet_lemmatizer.lemmatize(word, pos='v') for word in words]
@@ -39,14 +39,17 @@ def clasificar_pelicula(Year, Title, Plot):
     
     res = pd.DataFrame(y_pred_test_genres, index=df_params.index, columns=cols)
 
-    res_final = pd.DataFrame(res.columns.values[np.argsort(-res.values, axis=1)[:, :3]], 
-                  index=res.index,
-                  columns = ['1st','2nd','3rd']).reset_index()
+    index_top_ = np.argsort(-res.values, axis=1)[:, :5]
+    ret = ''
     
-    res_final = res_final.drop('index', 1)
+    for x in index_top_:
+        list_top = x.tolist()
+        for y in list_top:
+            ret = ret + str(res.columns[y]) + ': ' + str( "{:.2f}".format(res.at[0,res.columns[y]])) + ', '
     
-    return "\n".join(", ".join(map(str, xs)) for xs in res_final.itertuples(index=False))
+    ret = ret[:-2]
 
+    return ret
 
 if __name__ == "__main__":
     
